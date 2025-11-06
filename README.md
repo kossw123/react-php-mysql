@@ -38,12 +38,14 @@ react-php-mysql/
 ```
 
 ⚙️ 실행 환경
-항목 버전
-OS Windows 10 / WSL2 (Ubuntu 가능)
-Node.js v18 이상
-PHP 8.x
-Apache 2.4.x
-MySQL 8.x
-Axios ^1.6.0
-React 18.x
-Styled-components ^6.0
+| 항목                | 버전                            |
+| ----------------- | ----------------------------- |
+| OS                | Windows 10 / WSL2 (Ubuntu 가능) |
+| Node.js           | v18 이상                        |
+| PHP               | 8.x                           |
+| Apache            | 2.4.x                         |
+| MySQL             | 8.x                           |
+| Axios             | ^1.6.0                        |
+| React             | 18.x                          |
+| Styled-components | ^6.0                          |
+
