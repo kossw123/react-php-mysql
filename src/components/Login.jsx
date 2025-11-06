@@ -48,16 +48,13 @@ function Login({ onLoginSuccess }) {
          */
         axios.post('http://localhost/login.php', data, {withCredentials: true}).then(res => {
 
-            const result = res.data.
-                post_result.
-                validate.
-                auth;
+            const result = res.data.post_result.validate.auth;
 
             if (result === "CORRECT") {
                 onLoginSuccess();
                 navigate('/');
             }
-            else {
+            else if(result === "WRONG"){
                 alert("?");
             }
         });
