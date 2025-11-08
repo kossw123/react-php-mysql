@@ -13,6 +13,8 @@ import {
 import EditUser from './components/EditUser';
 import ViewUser from './components/ViewUser';
 import ProfileSidebar from './components/ProfileSidebar';
+import KeepLogin from './components/KeepLogin';
+
 
 
 function Layout() {
@@ -49,12 +51,21 @@ function App() {
     const [isLogged, setLogged] = useState(false);
 
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="login/" element={<Login onLoginSuccess={() => setLogged(!isLogged)} />} />
-                <Route path="/*" element={isLogged ? <Layout /> : <Navigate to="login/" replace />} />
-            </Routes>
-        </BrowserRouter>
+        <div>
+            <KeepLogin>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="login/" element={
+                            <KeepLogin>
+                                <Login onLoginSuccess={() => setLogged(!isLogged)} />
+                            </KeepLogin>
+                        } />
+                        <Route path="/*" element={isLogged ? <Layout /> : <Navigate to="login/" replace />} />
+                    </Routes>
+                </BrowserRouter>
+            </KeepLogin>
+        </div>
+
     );
 }
 
