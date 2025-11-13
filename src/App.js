@@ -56,9 +56,10 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="login/" element={
-                            <KeepLogin>
-                                <Login onLoginSuccess={() => setLogged(!isLogged)} />
-                            </KeepLogin>
+                            <Login onLoginSuccess={() => setLogged(!isLogged)} />
+                            // <KeepLogin>
+                            //     <Login onLoginSuccess={() => setLogged(!isLogged)} />
+                            // </KeepLogin>
                         } />
                         <Route path="/*" element={isLogged ? <Layout /> : <Navigate to="login/" replace />} />
                     </Routes>

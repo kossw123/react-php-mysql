@@ -10,8 +10,6 @@ import { LoginContainer,
 } from "../styles/UseLoginStyle";
 
 
-import KeepLogin from './KeepLogin';
-
 function Login({ onLoginSuccess }) { 
     const navigate = useNavigate();
     const [data, setData] = useState([]);
@@ -49,7 +47,8 @@ function Login({ onLoginSuccess }) {
 
         axios.post('http://localhost/login.php', data, {withCredentials: true}).then(res => {
 
-            const result = res.data.post_result.auth;
+            const result = res.data.auth;
+            console.log(result);
 
             if (result === "CORRECT") {
                 onLoginSuccess();
@@ -58,13 +57,10 @@ function Login({ onLoginSuccess }) {
             else if(result === "WRONG"){
                 alert("?");
             }
-
-            //console.log(res.data);
         });
     }
 
     return (
-        // <KeepLogin>
             <LoginContainer>
                 <LoginBox>
                     <LoginTitle>로그인</LoginTitle>
@@ -73,7 +69,6 @@ function Login({ onLoginSuccess }) {
                     <LoginButton onClick={handleSubmit}>로그인</LoginButton>
                 </LoginBox>
             </LoginContainer>
-        // </KeepLogin>
     );
 }
 

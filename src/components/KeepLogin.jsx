@@ -8,10 +8,16 @@ function KeepLogin({ children }) {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            axios.get('http://localhost/session_check.php').then(function (res) {
-                console.log(res.data);
+            /// session_check.php 부분이 사라졌다.
+            // 그렇다면 어떻게 프론트엔드와 통신할 것인가?
+            /// 똑같이 하면 되지 않을까?\
+            /// 그러면 SessionManager에서의 어디와 통신할 것인가?
+            axios.get('http://localhost/session_check.php').then(res => { 
+                console.log("interval 진입");
             });
-        }, 5 * 60 * 1000);
+        }, 1000 * 60 * 24);
+
+        
 
         return () => clearInterval(interval);
     }, []);

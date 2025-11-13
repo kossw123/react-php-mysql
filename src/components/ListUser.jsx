@@ -13,13 +13,13 @@ export default function ListUser() {
 
     function getUsers() { 
         axios.get('http://localhost/user/list')
-            .then(function (response) {
-                setUsers(response.data);
+            .then(function (res) {
+                setUsers(res.data);
             });
     }
 
     const deleteHandle = (id) => {
-        axios.delete(`http://localhost/user/list/${id}/delete`).then(function (response) {
+        axios.delete(`http://localhost/user/list/${id}/delete`).then(function (res) {
             getUsers();
         });
     }
