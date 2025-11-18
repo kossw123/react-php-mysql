@@ -9,17 +9,17 @@ export default function ListUser() {
     useEffect(() => {  
         getUsers();
     }, []);
-
-
+    
     function getUsers() { 
-        axios.get('http://localhost/user/list')
+        axios.get('http://localhost/user/list', {withCredentials: true})
             .then(function (res) {
+                console.log(res.data);
                 setUsers(res.data);
             });
     }
 
     const deleteHandle = (id) => {
-        axios.delete(`http://localhost/user/list/${id}/delete`).then(function (res) {
+        axios.delete(`http://localhost/user/list/${id}/delete`, {withCredentials: true}).then(function (res) {
             getUsers();
         });
     }
