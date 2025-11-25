@@ -6,12 +6,14 @@ import { useNavigate } from "react-router-dom";
 
 
 function CreateUser() {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState({});
     const navigate = useNavigate();
 
-    const submitHandle = (e) => {
+
+    // https://chatgpt.com/s/t_691ddc796e3081918536c5f3f2a85d6c
+    const submitHandle = async (e) => {
         e.preventDefault();
-        req();
+        await req();
         navigate('/');
     };
 
@@ -26,8 +28,8 @@ function CreateUser() {
 
 
     function req() { 
-        axios.post('http://localhost/user/create', data).then(function (response) { 
-            console.log(response.data);
+        axios.post('http://localhost/user/create', data, {withCredentials:true}).then(function (response) { 
+            console.log(response.data.data);
         });
     }
 

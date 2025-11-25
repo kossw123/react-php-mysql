@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table, Thead, Th, Tr, Td, ActionLink } from '../styles/UseListStyle';
 import axios from "axios";
+import AuthService from "../services/AuthService";
 
 export default function ListUser() { 
 
@@ -11,17 +12,21 @@ export default function ListUser() {
     }, []);
     
     function getUsers() { 
-        axios.get('http://localhost/user/list', {withCredentials: true})
-            .then(function (res) {
-                console.log(res.data);
-                setUsers(res.data);
-            });
+        AuthService.getList().then(res => { 
+            const payload = res.data.data;
+            if (Array.isArray(payload)) { 
+                setUsers(payload);    
+            }
+            else {
+                setUsers([]);
+            }
+        });
     }
 
     const deleteHandle = (id) => {
-        axios.delete(`http://localhost/user/list/${id}/delete`, {withCredentials: true}).then(function (res) {
+        AuthService.delete(id).then(res => { 
             getUsers();
-        });
+        })
     }
 
 

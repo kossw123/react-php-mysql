@@ -14,6 +14,7 @@ import EditUser from './components/EditUser';
 import ViewUser from './components/ViewUser';
 import ProfileSidebar from './components/ProfileSidebar';
 import KeepLogin from './components/KeepLogin';
+import SignUp from './components/SignUp';
 
 
 
@@ -32,7 +33,6 @@ function Layout() {
                         <ProfileSidebar />
                     </NavItem>
                 </NavList>
-
             </NavWrapper>
 
             <Routes>
@@ -62,6 +62,7 @@ function App() {
                             // </KeepLogin>
                         } />
                         <Route path="/*" element={isLogged ? <Layout /> : <Navigate to="login/" replace />} />
+                        <Route path="/signUp" element={<SignUp />} />
                     </Routes>
                 </BrowserRouter>
             </KeepLogin>

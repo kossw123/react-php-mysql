@@ -33,13 +33,13 @@ function EditUser() {
         axios.put(`http://localhost/user/list/${id}/edit`, 
             {...data, id: id}
         ).then(function (response) { 
-            setData(response.data);
+            setData(response.data.data);
         });
     }
 
     function req_user() { 
         axios.get(`http://localhost/user/list/${id}`).then(function (response) { 
-            setData(response.data);
+            setData(response.data.data);
         })
     }
 

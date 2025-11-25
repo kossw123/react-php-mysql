@@ -2,6 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+
+import AuthService from "../services/AuthService";
+import LoginValidator from "../utils/LoginValidator";
+import LoginStatus from "../utils/LoginStatus";
+
+
 import { LoginContainer,
     LoginBox,
     LoginTitle,
@@ -9,7 +15,6 @@ import { LoginContainer,
     LoginButton,
     SignUpButton
 } from "../styles/UseLoginStyle";
-
 
 function Login({ onLoginSuccess }) { 
     const navigate = useNavigate();
@@ -25,32 +30,25 @@ function Login({ onLoginSuccess }) {
     }
 
     const loginSubmit = () => { 
-        req_login();
-    }
+        AuthService.login(data).then(res => {
 
-    const singUpSubmit = () => { 
-        req_signUp();
-    }
-
-    function req_signUp() { 
-        axios.post('http://localhost/sigiup.php', data, { withCredentials: true }).then(res => {
-            
-        });
-    }
-
-    function req_login() { 
-        axios.post('http://localhost/login.php', data, {withCredentials: true}).then(res => {
-
-            const result = res.data.auth;
             console.log(res.data);
+            const result = res.data.status;
 
-            if (result === "CORRECT") {
+            const check = LoginStatus.checkStatus(result);
+            if (check) { 
                 onLoginSuccess();
                 navigate('/');
             }
-            else if(result === "WRONG"){
-                alert("?");
+            else { 
+                console.log(check);
             }
+        });
+    }
+
+    const signUpSubmit = () => { 
+        AuthService.signUp(data).then(res => {
+            navigate('/signUp');
         });
     }
 
@@ -61,7 +59,7 @@ function Login({ onLoginSuccess }) {
                     <LoginInput name="id" type="id" placeholder="ID" onChange={handleChange} />
                     <LoginInput name="password" type="password" placeholder="P/W" onChange={handleChange} />
                     <LoginButton onClick={loginSubmit}>로그인</LoginButton>
-                    <SignUpButton onClick={singUpSubmit}>회원 가입</SignUpButton>
+                    <SignUpButton onClick={signUpSubmit}>회원 가입</SignUpButton>
                 </LoginBox>
             </LoginContainer>
     );
