@@ -31,17 +31,13 @@ function Login({ onLoginSuccess }) {
 
     const loginSubmit = () => { 
         AuthService.login(data).then(res => {
-
-            console.log(res.data);
             const result = res.data.status;
-
-            const check = LoginStatus.checkStatus(result);
-            if (check) { 
+            if (LoginStatus.checkStatus(result)) { 
                 onLoginSuccess();
                 navigate('/');
             }
             else { 
-                console.log(check);
+                alert("status is diff");
             }
         });
     }

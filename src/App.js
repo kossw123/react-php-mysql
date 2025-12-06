@@ -1,6 +1,5 @@
 import './App.css';
-import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
-import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import ListUser from './components/ListUser';
 import CreateUser from './components/CreateUser';
@@ -15,10 +14,21 @@ import ViewUser from './components/ViewUser';
 import ProfileSidebar from './components/ProfileSidebar';
 import KeepLogin from './components/KeepLogin';
 import SignUp from './components/SignUp';
+import LogOut from './components/LogOut';
+
+
+import useLoggedStore from './stores/Logged';
+import ProtectedRoute from './utils/ProtectedRoute';
+
+
+
 
 
 
 function Layout() {
+    const loggedAction = useLoggedStore(state => state.setLogged);
+
+
     return (
         <div>
             <NavWrapper>
@@ -41,6 +51,7 @@ function Layout() {
                 <Route path="/user/list/:id/edit" element={<EditUser />} />
                 <Route path="/user/list/info" element={<ViewUser />} />
                 <Route path="/user/profile" element={<ProfileSidebar />} />
+                <Route path="/Logout" element={<LogOut onLogout={() => loggedAction(false)} />} />
             </Routes>
         </div>
     );
@@ -48,7 +59,10 @@ function Layout() {
 
 function App() {
 
-    const [isLogged, setLogged] = useState(false);
+    //const [isLogged, setLogged] = useState(false);
+
+    const loggedState = useLoggedStore(state => state.isLogged);
+    const loggedAction = useLoggedStore(state => state.setLogged);
 
     return (
         <div>
@@ -56,12 +70,13 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="login/" element={
-                            <Login onLoginSuccess={() => setLogged(!isLogged)} />
-                            // <KeepLogin>
-                            //     <Login onLoginSuccess={() => setLogged(!isLogged)} />
-                            // </KeepLogin>
+                            <Login onLoginSuccess={() => loggedAction(true)} />
                         } />
-                        <Route path="/*" element={isLogged ? <Layout /> : <Navigate to="login/" replace />} />
+                        <Route path="/*" element={
+                            <ProtectedRoute>
+                                <Layout />
+                            </ProtectedRoute>
+                        } />
                         <Route path="/signUp" element={<SignUp />} />
                     </Routes>
                 </BrowserRouter>

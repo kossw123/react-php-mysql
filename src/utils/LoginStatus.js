@@ -3,7 +3,8 @@ class LoginStatus {
         switch (status) {
             case "CORRECT":
                 return true;
-            
+            case "SUCCESS":
+                return true;
             case "WRONG":
                 alert("아이디 또는 비밀번호 오류");
                 return false;

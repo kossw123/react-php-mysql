@@ -25,6 +25,12 @@ class AuthService {
     static delete(data) { 
         return axios.delete(`http://localhost/user/list/${data}/delete`, { withCredentials: true });
     }
+
+    static logout() { 
+        return axios.get(`http://localhost/logout.php}`, {
+            withCredentials: true
+        });
+    }
 }
 
 

@@ -27,7 +27,7 @@ function SignUp() {
 
     function setAccount() {
         AuthService.signUp(data).then(res => {
-            console.log(data);
+            console.log(res.data);
         });
     }
 

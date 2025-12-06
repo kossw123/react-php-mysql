@@ -7,6 +7,9 @@ import {
   SidebarSectionTitle,
 } from "../styles/UseProfileSidebarStyle";
 import { useNavigate } from "react-router-dom";
+import AuthService from "../services/AuthService";
+import LogOut from "./LogOut";
+
 
 export default function ProfileSidebar({user = { name: "kossw123", email: "test@example.com" },})
 {
@@ -22,6 +25,16 @@ export default function ProfileSidebar({user = { name: "kossw123", email: "test@
     const itemClickHandle = (path) => { 
         navigate(path);
         setOpen(false);
+    }
+
+    const logoutHandle = (path) => { 
+        AuthService.logout().then(res => {
+            const status = res.data.status;
+            if (status === 'Success') { 
+                navigate(path);
+                setOpen(false);
+            }
+        });
     }
 
     return (
@@ -54,7 +67,7 @@ export default function ProfileSidebar({user = { name: "kossw123", email: "test@
             <SidebarItem>비밀번호 변경</SidebarItem>
 
             <SidebarSectionTitle>Actions</SidebarSectionTitle>
-            <SidebarItem>로그아웃</SidebarItem>
+            <SidebarItem onClick={() => logoutHandle("/Logout")}>로그아웃</SidebarItem>
             <SidebarItem>설정</SidebarItem>
         </SidebarPanel>
         </>
